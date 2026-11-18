@@ -689,9 +689,12 @@ A complete, fully functional, self-contained web portal has been built in [app_p
 3. **Interactive SQL Console**:
    - Full arbitrary SQL execution for custom analytical queries, table checks, and updates.
 
-### 3.3 How to Launch the Web Application
+### 3.3 Live Public Deployment & Local Execution
 
-The application is completely self-contained using Python's built-in standard library (`http.server` + `sqlite3`), requiring **no external dependencies or installations**:
+* **Live Cloud Deployment (Render)**: [https://cs-550-supply-chain.onrender.com/](https://cs-550-supply-chain.onrender.com/)
+* **GitHub Repository**: [https://github.com/chetsp/CS-550-Supply-chain](https://github.com/chetsp/CS-550-Supply-chain)
+
+The application can also be executed locally using Python's standard library (`http.server` + `sqlite3`), requiring **no external dependencies or installations**:
 
 ```bash
 # Run from the project root folder:
