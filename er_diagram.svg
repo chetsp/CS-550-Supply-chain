@@ -1,0 +1,249 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="100%" height="100%" style="background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08" />
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb" />
+    </marker>
+    <marker id="circle-marker" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6">
+      <circle cx="5" cy="5" r="3" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <!-- Title Banner -->
+  <rect x="40" y="30" width="1520" height="70" rx="8" fill="#1e293b" filter="url(#shadow)" />
+  <text x="60" y="65" fill="#ffffff" font-size="22" font-weight="700">CS 550 / CS 450: Collaborative Supply Chain EER Diagram</text>
+  <text x="60" y="85" fill="#94a3b8" font-size="13">Conceptual Extended Entity-Relationship Model (Specialization Hierarchies, Associative Pricing, Independent Orders)</text>
+
+  <!-- ==================== HIERARCHY 1: BUSINESS ENTITIES ==================== -->
+  <!-- Superclass: BusinessEntities -->
+  <g transform="translate(80, 140)" filter="url(#shadow)">
+    <rect width="280" height="175" rx="8" fill="#ffffff" stroke="#3b82f6" stroke-width="2" />
+    <path d="M 0 0 L 280 0 L 280 34 L 0 34 Z" fill="#3b82f6" rx="8" />
+    <text x="14" y="23" fill="#ffffff" font-size="14" font-weight="700">BusinessEntities (Superclass)</text>
+    <text x="14" y="55" fill="#1e293b" font-size="12" font-weight="600"><tspan text-decoration="underline">entityId</tspan> : VARCHAR(30) [PK]</text>
+    <text x="14" y="74" fill="#475569" font-size="12">name : VARCHAR(100)</text>
+    <text x="14" y="93" fill="#475569" font-size="12">shipLoc : VARCHAR(50)</text>
+    <text x="14" y="112" fill="#475569" font-size="12">address : VARCHAR(150)</text>
+    <text x="14" y="131" fill="#475569" font-size="12">phone : VARCHAR(20)</text>
+    <text x="14" y="150" fill="#475569" font-size="12">web : VARCHAR(100)</text>
+    <text x="14" y="169" fill="#475569" font-size="12">contactInfo : VARCHAR(100)</text>
+  </g>
+
+  <!-- ISA Circle for BE -->
+  <circle cx="220" cy="355" r="16" fill="#eff6ff" stroke="#3b82f6" stroke-width="2" />
+  <text x="212" y="360" fill="#1d4ed8" font-size="12" font-weight="bold">d</text>
+  <line x1="220" y1="315" x2="220" y2="339" stroke="#3b82f6" stroke-width="2" />
+
+  <!-- Subclass: Suppliers -->
+  <g transform="translate(50, 410)" filter="url(#shadow)">
+    <rect width="200" height="125" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5" />
+    <path d="M 0 0 L 200 0 L 200 28 L 0 28 Z" fill="#eff6ff" />
+    <text x="12" y="19" fill="#1e40af" font-size="13" font-weight="700">Suppliers (Subclass)</text>
+    <text x="12" y="46" fill="#1e293b" font-size="11" font-weight="600"><tspan text-decoration="underline">supplierId</tspan> [PK, FK]</text>
+    <text x="12" y="64" fill="#475569" font-size="11">discountThreshold1 : NUM</text>
+    <text x="12" y="82" fill="#475569" font-size="11">discountPercent1 : NUM</text>
+    <text x="12" y="100" fill="#475569" font-size="11">discountThreshold2 : NUM</text>
+    <text x="12" y="118" fill="#475569" font-size="11">discountPercent2 : NUM</text>
+  </g>
+  <line x1="220" y1="371" x2="150" y2="410" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+
+  <!-- Subclass: Manufacturers -->
+  <g transform="translate(270, 410)" filter="url(#shadow)">
+    <rect width="200" height="95" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5" />
+    <path d="M 0 0 L 200 0 L 200 28 L 0 28 Z" fill="#eff6ff" />
+    <text x="12" y="19" fill="#1e40af" font-size="13" font-weight="700">Manufacturers (Subclass)</text>
+    <text x="12" y="46" fill="#1e293b" font-size="11" font-weight="600"><tspan text-decoration="underline">manufId</tspan> [PK, FK]</text>
+    <text x="12" y="64" fill="#475569" font-size="11">discountThreshold : NUM</text>
+    <text x="12" y="82" fill="#475569" font-size="11">discountPercent : NUM</text>
+  </g>
+  <line x1="220" y1="371" x2="350" y2="410" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+
+  <!-- Subclass: Customers -->
+  <g transform="translate(50, 560)" filter="url(#shadow)">
+    <rect width="200" height="95" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5" />
+    <path d="M 0 0 L 200 0 L 200 28 L 0 28 Z" fill="#eff6ff" />
+    <text x="12" y="19" fill="#1e40af" font-size="13" font-weight="700">Customers (Subclass)</text>
+    <text x="12" y="46" fill="#1e293b" font-size="11" font-weight="600"><tspan text-decoration="underline">customerId</tspan> [PK, FK]</text>
+    <text x="12" y="64" fill="#475569" font-size="11">customerType : VARCHAR</text>
+    <text x="12" y="82" fill="#475569" font-size="11">creditLimit : NUM</text>
+  </g>
+  <line x1="220" y1="371" x2="150" y2="560" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+
+  <!-- Subclass: Shippers -->
+  <g transform="translate(270, 560)" filter="url(#shadow)">
+    <rect width="200" height="80" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5" />
+    <path d="M 0 0 L 200 0 L 200 28 L 0 28 Z" fill="#eff6ff" />
+    <text x="12" y="19" fill="#1e40af" font-size="13" font-weight="700">Shippers (Subclass)</text>
+    <text x="12" y="46" fill="#1e293b" font-size="11" font-weight="600"><tspan text-decoration="underline">shipperId</tspan> [PK, FK]</text>
+    <text x="12" y="66" fill="#475569" font-size="11">trackingUrl : VARCHAR</text>
+  </g>
+  <line x1="220" y1="371" x2="350" y2="560" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+
+
+  <!-- ==================== HIERARCHY 2: ITEMS ==================== -->
+  <!-- Superclass: Items -->
+  <g transform="translate(1220, 140)" filter="url(#shadow)">
+    <rect width="260" height="125" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2" />
+    <path d="M 0 0 L 260 0 L 260 34 L 0 34 Z" fill="#059669" rx="8" />
+    <text x="14" y="23" fill="#ffffff" font-size="14" font-weight="700">Items (Superclass)</text>
+    <text x="14" y="55" fill="#1e293b" font-size="12" font-weight="600"><tspan text-decoration="underline">itemId</tspan> : VARCHAR(30) [PK]</text>
+    <text x="14" y="74" fill="#475569" font-size="12">itemName : VARCHAR(100)</text>
+    <text x="14" y="93" fill="#475569" font-size="12">unitWeight : NUMBER</text>
+    <text x="14" y="112" fill="#475569" font-size="12">itemCategory : VARCHAR(20)</text>
+  </g>
+
+  <!-- ISA Circle for Items -->
+  <circle cx="1350" cy="305" r="16" fill="#ecfdf5" stroke="#059669" stroke-width="2" />
+  <text x="1343" y="310" fill="#047857" font-size="12" font-weight="bold">o</text>
+  <line x1="1350" y1="265" x2="1350" y2="289" stroke="#059669" stroke-width="2" />
+
+  <!-- Subclass: MaterialItems -->
+  <g transform="translate(1100, 360)" filter="url(#shadow)">
+    <rect width="200" height="75" rx="6" fill="#ffffff" stroke="#34d399" stroke-width="1.5" />
+    <path d="M 0 0 L 200 0 L 200 28 L 0 28 Z" fill="#ecfdf5" />
+    <text x="12" y="19" fill="#065f46" font-size="13" font-weight="700">MaterialItems (Subclass)</text>
+    <text x="12" y="46" fill="#1e293b" font-size="11" font-weight="600"><tspan text-decoration="underline">itemId</tspan> [PK, FK]</text>
+    <text x="12" y="64" fill="#475569" font-size="11">materialType : VARCHAR</text>
+  </g>
+  <line x1="1350" y1="321" x2="1230" y2="360" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Subclass: ProductItems -->
+  <g transform="translate(1330, 360)" filter="url(#shadow)">
+    <rect width="200" height="75" rx="6" fill="#ffffff" stroke="#34d399" stroke-width="1.5" />
+    <path d="M 0 0 L 200 0 L 200 28 L 0 28 Z" fill="#ecfdf5" />
+    <text x="12" y="19" fill="#065f46" font-size="13" font-weight="700">ProductItems (Subclass)</text>
+    <text x="12" y="46" fill="#1e293b" font-size="11" font-weight="600"><tspan text-decoration="underline">itemId</tspan> [PK, FK]</text>
+    <text x="12" y="64" fill="#475569" font-size="11">productLine : VARCHAR</text>
+  </g>
+  <line x1="1350" y1="321" x2="1400" y2="360" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow)" />
+
+
+  <!-- ==================== RELATIONSHIPS & ASSOCIATIVE PRICING ==================== -->
+
+  <!-- Relationship: BillOfMaterials (BOM) -->
+  <g transform="translate(1190, 480)" filter="url(#shadow)">
+    <rect width="220" height="85" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="2" />
+    <path d="M 0 0 L 220 0 L 220 28 L 0 28 Z" fill="#fef3c7" />
+    <text x="12" y="19" fill="#92400e" font-size="13" font-weight="700">BillOfMaterials (BOM)</text>
+    <text x="12" y="46" fill="#1e293b" font-size="11" font-weight="600"><tspan text-decoration="underline">prodItemId</tspan> [FK], <tspan text-decoration="underline">matItemId</tspan> [FK]</text>
+    <text x="12" y="66" fill="#475569" font-size="11">qtyMatPerItem : NUMBER &gt; 0</text>
+  </g>
+  <!-- Connector from ProductItems & MaterialItems to BOM -->
+  <path d="M 1430 435 L 1430 460 L 1330 460 L 1330 480" fill="none" stroke="#d97706" stroke-width="1.5" />
+  <path d="M 1200 435 L 1200 460 L 1260 460 L 1260 480" fill="none" stroke="#d97706" stroke-width="1.5" />
+  <text x="1340" y="475" fill="#d97706" font-size="10" font-weight="bold">M:N BOM</text>
+
+  <!-- Supply Pricing -->
+  <g transform="translate(650, 200)" filter="url(#shadow)">
+    <rect width="220" height="85" rx="6" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.5" />
+    <path d="M 0 0 L 220 0 L 220 28 L 0 28 Z" fill="#f5f3ff" />
+    <text x="12" y="19" fill="#5b21b6" font-size="13" font-weight="700">SupplyPricing</text>
+    <text x="12" y="46" fill="#1e293b" font-size="11" font-weight="600"><tspan text-decoration="underline">supplierId</tspan> [FK], <tspan text-decoration="underline">itemId</tspan> [FK]</text>
+    <text x="12" y="66" fill="#475569" font-size="11">pricePerUnit : NUMBER &gt; 0</text>
+  </g>
+  <line x1="250" y1="440" x2="650" y2="245" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4" />
+  <line x1="1220" y1="190" x2="870" y2="240" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4" />
+
+  <!-- Manufacturing Pricing -->
+  <g transform="translate(650, 320)" filter="url(#shadow)">
+    <rect width="240" height="95" rx="6" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.5" />
+    <path d="M 0 0 L 240 0 L 240 28 L 0 28 Z" fill="#f5f3ff" />
+    <text x="12" y="19" fill="#5b21b6" font-size="13" font-weight="700">ManufacturingPricing</text>
+    <text x="12" y="46" fill="#1e293b" font-size="11" font-weight="600"><tspan text-decoration="underline">manufId</tspan> [FK], <tspan text-decoration="underline">prodItemId</tspan> [FK]</text>
+    <text x="12" y="66" fill="#475569" font-size="11">setUpCost : NUMBER &gt;= 0</text>
+    <text x="12" y="84" fill="#475569" font-size="11">prodCostPerUnit : NUMBER &gt; 0</text>
+  </g>
+  <line x1="470" y1="440" x2="650" y2="360" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4" />
+  <line x1="1330" y1="390" x2="890" y2="360" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4" />
+
+  <!-- Shipping Route Pricing -->
+  <g transform="translate(650, 450)" filter="url(#shadow)">
+    <rect width="260" height="135" rx="6" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.5" />
+    <path d="M 0 0 L 260 0 L 260 28 L 0 28 Z" fill="#f5f3ff" />
+    <text x="12" y="19" fill="#5b21b6" font-size="13" font-weight="700">ShippingPricing (Route Schedule)</text>
+    <text x="12" y="46" fill="#1e293b" font-size="11" font-weight="600"><tspan text-decoration="underline">shipperId</tspan> [FK], <tspan text-decoration="underline">fromLoc</tspan>, <tspan text-decoration="underline">toLoc</tspan></text>
+    <text x="12" y="64" fill="#475569" font-size="11">minPackagePrice : NUMBER &gt;= 0</text>
+    <text x="12" y="82" fill="#475569" font-size="11">pricePerLb : NUMBER &gt; 0</text>
+    <text x="12" y="100" fill="#475569" font-size="11">discountThreshold1, discountPercent1</text>
+    <text x="12" y="118" fill="#475569" font-size="11">discountThreshold2, discountPercent2</text>
+  </g>
+  <line x1="470" y1="590" x2="650" y2="520" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4" />
+
+  <!-- Customer Demand -->
+  <g transform="translate(650, 620)" filter="url(#shadow)">
+    <rect width="240" height="85" rx="6" fill="#ffffff" stroke="#ec4899" stroke-width="1.5" />
+    <path d="M 0 0 L 240 0 L 240 28 L 0 28 Z" fill="#fdf2f8" />
+    <text x="12" y="19" fill="#9d174d" font-size="13" font-weight="700">CustomerDemand</text>
+    <text x="12" y="46" fill="#1e293b" font-size="11" font-weight="600"><tspan text-decoration="underline">customerId</tspan> [FK], <tspan text-decoration="underline">itemId</tspan> [FK]</text>
+    <text x="12" y="66" fill="#475569" font-size="11">demandQty : NUMBER &gt; 0</text>
+  </g>
+  <line x1="250" y1="610" x2="650" y2="650" stroke="#ec4899" stroke-width="1.5" stroke-dasharray="4" />
+  <line x1="1220" y1="250" x2="890" y2="640" stroke="#ec4899" stroke-width="1.5" stroke-dasharray="4" />
+
+
+  <!-- ==================== ORDERS SECTION (RECORDED SEPARATELY) ==================== -->
+  <rect x="40" y="750" width="1520" height="410" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="60" y="785" fill="#0f172a" font-size="16" font-weight="700">Transaction Orders (Recorded Separately per Specification)</text>
+
+  <!-- Supply Orders -->
+  <g transform="translate(70, 810)" filter="url(#shadow)">
+    <rect width="320" height="130" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="2" />
+    <path d="M 0 0 L 320 0 L 320 30 L 0 30 Z" fill="#0284c7" />
+    <text x="12" y="20" fill="#ffffff" font-size="13" font-weight="700">SupplyOrders</text>
+    <text x="12" y="50" fill="#1e293b" font-size="12" font-weight="600"><tspan text-decoration="underline">orderId</tspan> : VARCHAR(30) [PK]</text>
+    <text x="12" y="70" fill="#475569" font-size="12">supplierId : VARCHAR(30) [FK &rarr; Suppliers]</text>
+    <text x="12" y="90" fill="#475569" font-size="12">itemId : VARCHAR(30) [FK &rarr; Items]</text>
+    <text x="12" y="110" fill="#475569" font-size="12">orderedQty : NUMBER &gt; 0, orderDate : DATE</text>
+  </g>
+
+  <!-- Manufacturing Orders -->
+  <g transform="translate(440, 810)" filter="url(#shadow)">
+    <rect width="340" height="130" rx="6" fill="#ffffff" stroke="#0d9488" stroke-width="2" />
+    <path d="M 0 0 L 340 0 L 340 30 L 0 30 Z" fill="#0d9488" />
+    <text x="12" y="20" fill="#ffffff" font-size="13" font-weight="700">ManufacturingOrders</text>
+    <text x="12" y="50" fill="#1e293b" font-size="12" font-weight="600"><tspan text-decoration="underline">orderId</tspan> : VARCHAR(30) [PK]</text>
+    <text x="12" y="70" fill="#475569" font-size="12">manufId : VARCHAR(30) [FK &rarr; Manufacturers]</text>
+    <text x="12" y="90" fill="#475569" font-size="12">prodItemId : VARCHAR(30) [FK &rarr; ProductItems]</text>
+    <text x="12" y="110" fill="#475569" font-size="12">orderedQty : NUMBER &gt; 0, orderDate : DATE</text>
+  </g>
+
+  <!-- Shipping Orders -->
+  <g transform="translate(830, 810)" filter="url(#shadow)">
+    <rect width="390" height="165" rx="6" fill="#ffffff" stroke="#ea580c" stroke-width="2" />
+    <path d="M 0 0 L 390 0 L 390 30 L 0 30 Z" fill="#ea580c" />
+    <text x="12" y="20" fill="#ffffff" font-size="13" font-weight="700">ShippingOrders</text>
+    <text x="12" y="50" fill="#1e293b" font-size="12" font-weight="600"><tspan text-decoration="underline">shipOrderId</tspan> : VARCHAR(30) [PK]</text>
+    <text x="12" y="70" fill="#475569" font-size="12">shipperId : VARCHAR(30) [FK &rarr; Shippers]</text>
+    <text x="12" y="90" fill="#475569" font-size="12">senderId : VARCHAR(30) [FK &rarr; BusinessEntities]</text>
+    <text x="12" y="110" fill="#475569" font-size="12">recipientId : VARCHAR(30) [FK &rarr; BusinessEntities]</text>
+    <text x="12" y="130" fill="#475569" font-size="12">itemId : VARCHAR(30) [FK &rarr; Items]</text>
+    <text x="12" y="150" fill="#dc2626" font-size="11" font-weight="600">CHECK (senderId &lt;&gt; recipientId AND shippedQty &gt; 0)</text>
+  </g>
+
+  <!-- Legend & Notation -->
+  <g transform="translate(1260, 810)">
+    <rect width="270" height="175" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1" />
+    <text x="14" y="24" fill="#0f172a" font-size="12" font-weight="700">EER Notation Legend</text>
+    <circle cx="24" cy="46" r="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="21" y="50" fill="#1d4ed8" font-size="10" font-weight="bold">d</text>
+    <text x="42" y="50" fill="#334155" font-size="11">Disjoint Specialization</text>
+
+    <circle cx="24" cy="74" r="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" />
+    <text x="20" y="78" fill="#047857" font-size="10" font-weight="bold">o</text>
+    <text x="42" y="78" fill="#334155" font-size="11">Overlapping Specialization</text>
+
+    <line x1="16" y1="102" x2="32" y2="102" stroke="#1e293b" stroke-width="2" />
+    <text x="42" y="106" fill="#334155" font-size="11"><tspan text-decoration="underline">PK</tspan> Primary Key</text>
+
+    <line x1="16" y1="130" x2="32" y2="130" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4" />
+    <text x="42" y="134" fill="#334155" font-size="11">Pricing Schedule Association</text>
+
+    <line x1="16" y1="158" x2="32" y2="158" stroke="#ea580c" stroke-width="2" />
+    <text x="42" y="162" fill="#334155" font-size="11">Order Transaction Flow</text>
+  </g>
+</svg>

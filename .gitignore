@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# OS & Environment
+.DS_Store
+*.env
+credentials.py
+
+# SQLite DB file generated at runtime
+supply_chain_part3.db
