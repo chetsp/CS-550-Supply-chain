@@ -862,6 +862,14 @@ class SupplyChainRequestHandler(BaseHTTPRequestHandler):
                     col = c.get('col')
                     op = c.get('op', '=')
                     val = c.get('val')
+                    if isinstance(val, str):
+                        try:
+                            if '.' in val:
+                                val = float(val)
+                            else:
+                                val = int(val)
+                        except ValueError:
+                            pass
                     where_clauses.append(f"{col} {op} ?")
                     params.append(val)
                 sql += " WHERE " + " AND ".join(where_clauses)
