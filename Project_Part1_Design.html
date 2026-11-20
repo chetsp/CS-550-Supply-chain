@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CS 550 Project Part 1: Database Design Specification</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 20mm 15mm 20mm 15mm;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.55;
+      font-size: 11pt;
+      margin: 0;
+      padding: 0;
+    }
+    h1, h2, h3, h4 {
+      color: #0f172a;
+      font-weight: 700;
+      page-break-after: avoid;
+    }
+    h1 {
+      font-size: 20pt;
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 6px;
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+    .header-box {
+      background: #f8fafc;
+      border-left: 4px solid #2563eb;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+    .header-box table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5pt;
+    }
+    .header-box td {
+      padding: 3px 6px;
+      border: none;
+    }
+    h2 {
+      font-size: 14pt;
+      border-bottom: 1.5px solid #cbd5e1;
+      padding-bottom: 4px;
+      margin-top: 22px;
+      margin-bottom: 10px;
+    }
+    h3 {
+      font-size: 12pt;
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+    p, ul, ol {
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 18px 0;
+      font-size: 9.5pt;
+      page-break-inside: avoid;
+    }
+    table.data-table th, table.data-table td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 10px;
+      text-align: left;
+    }
+    table.data-table th {
+      background: #f1f5f9;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    table.data-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+    .diagram-container {
+      margin: 16px 0;
+      text-align: center;
+      page-break-inside: avoid;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px;
+      background: #ffffff;
+    }
+    .diagram-container svg {
+      width: 100%;
+      height: auto;
+      max-height: 480px;
+    }
+    pre {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 3px solid #3b82f6;
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 8.5pt;
+      line-height: 1.4;
+      overflow-x: auto;
+      page-break-inside: avoid;
+      margin: 8px 0 16px 0;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 9pt;
+      background: #f1f5f9;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+    .callout {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 10px 14px;
+      margin: 12px 0;
+      border-radius: 4px;
+      font-size: 10pt;
+      page-break-inside: avoid;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>CS 550: Database Management Systems</h1>
+  <div class="header-box">
+    <table>
+      <tr>
+        <td><strong>Project Assignment</strong>: Part 1 – Conceptual Database Design</td>
+        <td><strong>Semester</strong>: Fall 2026</td>
+      </tr>
+      <tr>
+        <td><strong>Student Name</strong>: Chetana Patel</td>
+        <td><strong>Course</strong>: CS 550 / CS 450</td>
+      </tr>
+      <tr>
+        <td><strong>Artifact</strong>: Technical Design Document &amp; SQL DDL Specification</td>
+        <td><strong>Submission Requirements</strong>: ER Diagram, Integrity Constraints, Assumptions, and Relational DDL</td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>1. Overview &amp; Requirements Analysis</h2>
+  <p>
+    The objective of Part 1 is to model a collaborative, multi-tier supply chain information system composed of <strong>Suppliers</strong>, <strong>Manufacturers</strong>, <strong>Shippers</strong>, and end <strong>Customers</strong>. 
+    Per the specification, this conceptual design treats entities with full normalization and formal specialization hierarchies rather than reverse-engineering the simplified operational schema used for query testing in Part 2.
+  </p>
+  <ul>
+    <li><strong>Items</strong>: Moved across the supply chain, possessing a unique identifier and weight. Specialized into raw <strong>MaterialItems</strong> and finished <strong>ProductItems</strong>.</li>
+    <li><strong>Bill of Materials (BOM)</strong>: Represents the quantity of component materials required to manufacture one unit of a finished product.</li>
+    <li><strong>Business Entities</strong>: Organizations or customers identified by an entity ID, geographic shipping location (node), address, phone, web portal, and contact details. Subtyped into Suppliers, Manufacturers, Customers, and Shippers.</li>
+    <li><strong>Pricing Models</strong>: Suppliers establish per-unit item prices with tiered volume deductions; Manufacturers incur setup costs and per-unit production costs with volume discounts on base excess; Shippers establish route schedules between origin and destination nodes based on total weight and tiered discounts with package minimums.</li>
+    <li><strong>Independent Order Streams</strong>: Orders are captured separately across Supply, Manufacturing, and Logistics operations.</li>
+  </ul>
+
+  <h2>2. Extended Entity-Relationship (EER) Model</h2>
+
+  <h3>2.1 Entity Sets and Attribute Specifications</h3>
+  <ul>
+    <li><code>Items</code> (Superclass): <u><code>itemId</code></u> (PK), <code>itemName</code>, <code>unitWeight</code>, <code>itemCategory</code> ('MATERIAL', 'PRODUCT', 'BOTH').</li>
+    <li><code>MaterialItems</code> (Subclass): <u><code>itemId</code></u> (PK, FK), <code>materialType</code>.</li>
+    <li><code>ProductItems</code> (Subclass): <u><code>itemId</code></u> (PK, FK), <code>productLine</code>.</li>
+    <li><code>BusinessEntities</code> (Superclass): <u><code>entityId</code></u> (PK), <code>name</code>, <code>shipLoc</code>, <code>address</code>, <code>phone</code>, <code>web</code>, <code>contactInfo</code>.</li>
+    <li><code>Suppliers</code> (Subclass): <u><code>supplierId</code></u> (PK, FK), <code>discountThreshold1</code>, <code>discountPercent1</code>, <code>discountThreshold2</code>, <code>discountPercent2</code>.</li>
+    <li><code>Manufacturers</code> (Subclass): <u><code>manufId</code></u> (PK, FK), <code>discountThreshold</code>, <code>discountPercent</code>.</li>
+    <li><code>Customers</code> (Subclass): <u><code>customerId</code></u> (PK, FK), <code>customerType</code>, <code>creditLimit</code>.</li>
+    <li><code>Shippers</code> (Subclass): <u><code>shipperId</code></u> (PK, FK), <code>trackingUrl</code>.</li>
+    <li><code>SupplyOrders</code>: <u><code>orderId</code></u> (PK), <code>supplierId</code> (FK), <code>itemId</code> (FK), <code>orderedQty</code>, <code>orderDate</code>.</li>
+    <li><code>ManufacturingOrders</code>: <u><code>orderId</code></u> (PK), <code>manufId</code> (FK), <code>prodItemId</code> (FK), <code>orderedQty</code>, <code>orderDate</code>.</li>
+    <li><code>ShippingOrders</code>: <u><code>shipOrderId</code></u> (PK), <code>shipperId</code> (FK), <code>senderId</code> (FK), <code>recipientId</code> (FK), <code>itemId</code> (FK), <code>shippedQty</code>, <code>shipDate</code>.</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <h3>2.2 Relationship Structural Constraints</h3>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Relationship Name</th>
+        <th>Participating Entities</th>
+        <th>Cardinality</th>
+        <th>Participation</th>
+        <th>Attributes</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>BillOfMaterials (BOM)</strong></td>
+        <td><code>ProductItems</code> &harr; <code>MaterialItems</code></td>
+        <td>M:N</td>
+        <td>Partial : Partial</td>
+        <td><code>qtyMatPerItem</code></td>
+        <td>Recursive component composition per product unit.</td>
+      </tr>
+      <tr>
+        <td><strong>SupplyPricing</strong></td>
+        <td><code>Suppliers</code> &harr; <code>Items</code></td>
+        <td>M:N</td>
+        <td>Partial : Partial</td>
+        <td><code>pricePerUnit</code></td>
+        <td>Supplier catalogue price per unit.</td>
+      </tr>
+      <tr>
+        <td><strong>ManufPricing</strong></td>
+        <td><code>Manufacturers</code> &harr; <code>ProductItems</code></td>
+        <td>M:N</td>
+        <td>Partial : Partial</td>
+        <td><code>setUpCost</code>, <code>prodCostPerUnit</code></td>
+        <td>Production tariff schedule per manufacturer.</td>
+      </tr>
+      <tr>
+        <td><strong>ShippingPricing</strong></td>
+        <td><code>Shippers</code> &harr; <code>Route(fromLoc, toLoc)</code></td>
+        <td>1:N</td>
+        <td>Partial : Partial</td>
+        <td><code>minPackagePrice</code>, <code>pricePerLb</code>, <code>amt1</code>, <code>disc1</code>, <code>amt2</code>, <code>disc2</code></td>
+        <td>Per-route logistics tariffs based on total aggregate shipment weight.</td>
+      </tr>
+      <tr>
+        <td><strong>CustomerDemand</strong></td>
+        <td><code>Customers</code> &harr; <code>Items</code></td>
+        <td>M:N</td>
+        <td>Partial : Partial</td>
+        <td><code>demandQty</code></td>
+        <td>Captures outstanding demand requirements.</td>
+      </tr>
+      <tr>
+        <td><strong>PlacesSupplyOrder</strong></td>
+        <td><code>Suppliers</code> (1) &harr; <code>SupplyOrders</code> (N)</td>
+        <td>1:N</td>
+        <td>Partial : Total</td>
+        <td>&mdash;</td>
+        <td>Supplier fulfillment binding.</td>
+      </tr>
+      <tr>
+        <td><strong>PlacesManufOrder</strong></td>
+        <td><code>Manufacturers</code> (1) &harr; <code>ManufacturingOrders</code> (N)</td>
+        <td>1:N</td>
+        <td>Partial : Total</td>
+        <td>&mdash;</td>
+        <td>Manufacturer assembly binding.</td>
+      </tr>
+      <tr>
+        <td><strong>ExecutesShipment</strong></td>
+        <td><code>Shippers</code> (1) &harr; <code>ShippingOrders</code> (N)</td>
+        <td>1:N</td>
+        <td>Partial : Total</td>
+        <td>&mdash;</td>
+        <td>Carrier logistics dispatch.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.3 Visual Extended Entity-Relationship (EER) Diagram</h3>
+  <div class="diagram-container">
+    <img src="er_diagram.svg" alt="Extended Entity-Relationship Diagram" style="width: 100%; max-height: 440px;" />
+    <p style="font-size: 8.5pt; color: #64748b; margin-top: 4px;"><strong>Figure 1</strong>: Extended Entity-Relationship Model showing Specialization Hierarchies (Disjoint 'd' and Overlapping 'o'), Associative Pricing Tariff Schedules, and Order Streams.</p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h2>3. Design Assumptions &amp; Explicit Rationale</h2>
+  <p>To address underspecified aspects in the domain description, the following formal design assumptions were adopted:</p>
+  <ol>
+    <li>
+      <strong>Specialization Hierarchy Modeling</strong>:
+      <ul>
+        <li><code>BusinessEntities</code> is partitioned into subclasses (<code>Suppliers</code>, <code>Manufacturers</code>, <code>Customers</code>, <code>Shippers</code>) using a disjoint specialization hierarchy. This eliminates null-value anomalies (e.g., shippers do not require manufacturing setup costs; customers do not publish route rates) while preserving shared attributes (<code>entityId</code>, <code>shipLoc</code>, <code>address</code>, <code>phone</code>, <code>web</code>, <code>contactInfo</code>) in the parent table.</li>
+        <li><code>Items</code> is partitioned using an overlapping hierarchy into <code>MaterialItems</code> and <code>ProductItems</code> with category tag <code>'BOTH'</code>, permitting an assembled sub-component to act simultaneously as a finished product of one production line and a raw input for another.</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Order Identification and Temporal Tracking</strong>:
+      Unlike Part 2 where orders lacked unique transaction keys, real-world enterprise databases require individual order identification. Surrogate primary keys (<code>orderId</code>, <code>shipOrderId</code>) and timestamps (<code>orderDate</code>, <code>shipDate</code>) are introduced to support multiple repeat orders between the same entities over time.
+    </li>
+    <li>
+      <strong>Integrity &amp; Anti-Reflexive Constraints</strong>:
+      <ul>
+        <li><code>CHECK (senderId &lt;&gt; recipientId)</code>: Enforces that an entity cannot execute a billable shipment to itself.</li>
+        <li><code>CHECK (prodItemId &lt;&gt; matItemId)</code>: Prohibits immediate recursive loops in the Bill of Materials where a product is composed directly of itself.</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Monotonic Discount Boundaries</strong>:
+      Volume deduction schedules require consistency: threshold 2 must be greater than or equal to threshold 1 (<code>amt2 &gt;= amt1</code>), and marginal discount rate 2 must be greater than or equal to rate 1 (<code>disc2 &gt;= disc1</code>), bounded within <code>[0.0000, 1.0000]</code>.
+    </li>
+    <li>
+      <strong>Physical Non-Negativity</strong>:
+      All weights, prices, setup costs, package minimums, and quantities are constrained via <code>CHECK (&gt; 0)</code> or <code>CHECK (&gt;= 0)</code>.
+    </li>
+  </ol>
+
+  <h2>4. Relational Schema Mapping (3NF / BCNF)</h2>
+  <ul>
+    <li><code>Items(<u>itemId</u>, itemName, unitWeight, itemCategory)</code></li>
+    <li><code>MaterialItems(<u>itemId</u>, materialType)</code> &mdash; <em>FK: itemId &rarr; Items</em></li>
+    <li><code>ProductItems(<u>itemId</u>, productLine)</code> &mdash; <em>FK: itemId &rarr; Items</em></li>
+    <li><code>BusinessEntities(<u>entityId</u>, name, shipLoc, address, phone, web, contactInfo)</code></li>
+    <li><code>Suppliers(<u>supplierId</u>, discountThreshold1, discountPercent1, discountThreshold2, discountPercent2)</code> &mdash; <em>FK: supplierId &rarr; BusinessEntities</em></li>
+    <li><code>Manufacturers(<u>manufId</u>, discountThreshold, discountPercent)</code> &mdash; <em>FK: manufId &rarr; BusinessEntities</em></li>
+    <li><code>Customers(<u>customerId</u>, customerType, creditLimit)</code> &mdash; <em>FK: customerId &rarr; BusinessEntities</em></li>
+    <li><code>Shippers(<u>shipperId</u>, trackingUrl)</code> &mdash; <em>FK: shipperId &rarr; BusinessEntities</em></li>
+    <li><code>BillOfMaterials(<u>prodItemId</u>, <u>matItemId</u>, qtyMatPerItem)</code> &mdash; <em>FKs: prodItemId &rarr; ProductItems, matItemId &rarr; MaterialItems</em></li>
+    <li><code>SupplyPricing(<u>supplierId</u>, <u>itemId</u>, pricePerUnit)</code> &mdash; <em>FKs: supplierId &rarr; Suppliers, itemId &rarr; Items</em></li>
+    <li><code>ManufacturingPricing(<u>manufId</u>, <u>prodItemId</u>, setUpCost, prodCostPerUnit)</code> &mdash; <em>FKs: manufId &rarr; Manufacturers, prodItemId &rarr; ProductItems</em></li>
+    <li><code>ShippingPricing(<u>shipperId</u>, <u>fromLoc</u>, <u>toLoc</u>, minPackagePrice, pricePerLb, discountThreshold1, discountPercent1, discountThreshold2, discountPercent2)</code> &mdash; <em>FK: shipperId &rarr; Shippers</em></li>
+    <li><code>CustomerDemand(<u>customerId</u>, <u>itemId</u>, demandQty)</code> &mdash; <em>FKs: customerId &rarr; Customers, itemId &rarr; Items</em></li>
+    <li><code>SupplyOrders(<u>orderId</u>, supplierId, itemId, orderedQty, orderDate)</code> &mdash; <em>FKs: supplierId &rarr; Suppliers, itemId &rarr; Items</em></li>
+    <li><code>ManufacturingOrders(<u>orderId</u>, manufId, prodItemId, orderedQty, orderDate)</code> &mdash; <em>FKs: manufId &rarr; Manufacturers, prodItemId &rarr; ProductItems</em></li>
+    <li><code>ShippingOrders(<u>shipOrderId</u>, shipperId, senderId, recipientId, itemId, shippedQty, shipDate)</code> &mdash; <em>FKs: shipperId &rarr; Shippers, senderId &rarr; BusinessEntities, recipientId &rarr; BusinessEntities, itemId &rarr; Items</em></li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <h2>5. SQL DDL Specification with Integrity &amp; Domain CHECK Constraints</h2>
+  <p>The following SQL statements implement the relational schema in Oracle SQL / ANSI SQL DDL (extracted from <code>part1_create_tables.sql</code>):</p>
+
+  <pre><code>-- 1. SUPERCLASS: ITEMS
+CREATE TABLE Items (
+    itemId          VARCHAR2(30)    NOT NULL,
+    itemName        VARCHAR2(100)   NOT NULL,
+    unitWeight      NUMBER(10, 2)   NOT NULL,
+    itemCategory    VARCHAR2(20)    NOT NULL,
+    CONSTRAINT PK_Items PRIMARY KEY (itemId),
+    CONSTRAINT CHK_Items_Weight CHECK (unitWeight > 0),
+    CONSTRAINT CHK_Items_Category CHECK (itemCategory IN ('MATERIAL', 'PRODUCT', 'BOTH'))
+);
+
+-- 2. SUBCLASSES: MATERIAL & PRODUCT ITEMS
+CREATE TABLE MaterialItems (
+    itemId          VARCHAR2(30)    NOT NULL,
+    materialType    VARCHAR2(50),
+    CONSTRAINT PK_MaterialItems PRIMARY KEY (itemId),
+    CONSTRAINT FK_MaterialItems_Items FOREIGN KEY (itemId)
+        REFERENCES Items(itemId) ON DELETE CASCADE
+);
+
+CREATE TABLE ProductItems (
+    itemId          VARCHAR2(30)    NOT NULL,
+    productLine     VARCHAR2(50),
+    CONSTRAINT PK_ProductItems PRIMARY KEY (itemId),
+    CONSTRAINT FK_ProductItems_Items FOREIGN KEY (itemId)
+        REFERENCES Items(itemId) ON DELETE CASCADE
+);
+
+-- 3. SUPERCLASS: BUSINESS ENTITIES
+CREATE TABLE BusinessEntities (
+    entityId        VARCHAR2(30)    NOT NULL,
+    name            VARCHAR2(100)   NOT NULL,
+    shipLoc         VARCHAR2(50)    NOT NULL,
+    address         VARCHAR2(150)   NOT NULL,
+    phone           VARCHAR2(20)    NOT NULL,
+    web             VARCHAR2(100),
+    contactInfo     VARCHAR2(100)   NOT NULL,
+    CONSTRAINT PK_BusinessEntities PRIMARY KEY (entityId),
+    CONSTRAINT CHK_BE_Phone CHECK (LENGTH(TRIM(phone)) >= 7)
+);
+
+-- 4. SUBCLASSES: SUPPLIERS, MANUFACTURERS, CUSTOMERS, SHIPPERS
+CREATE TABLE Suppliers (
+    supplierId          VARCHAR2(30)    NOT NULL,
+    discountThreshold1  NUMBER(12, 2)   DEFAULT 0.00 NOT NULL,
+    discountPercent1    NUMBER(5, 4)    DEFAULT 0.0000 NOT NULL,
+    discountThreshold2  NUMBER(12, 2)   DEFAULT 0.00 NOT NULL,
+    discountPercent2    NUMBER(5, 4)    DEFAULT 0.0000 NOT NULL,
+    CONSTRAINT PK_Suppliers PRIMARY KEY (supplierId),
+    CONSTRAINT FK_Suppliers_BE FOREIGN KEY (supplierId)
+        REFERENCES BusinessEntities(entityId) ON DELETE CASCADE,
+    CONSTRAINT CHK_Sup_Disc1 CHECK (discountPercent1 >= 0.0000 AND discountPercent1 <= 1.0000),
+    CONSTRAINT CHK_Sup_Disc2 CHECK (discountPercent2 >= 0.0000 AND discountPercent2 <= 1.0000),
+    CONSTRAINT CHK_Sup_Thresholds CHECK (discountThreshold1 >= 0 AND discountThreshold2 >= discountThreshold1),
+    CONSTRAINT CHK_Sup_DiscRate CHECK (discountPercent2 >= discountPercent1)
+);
+
+CREATE TABLE Manufacturers (
+    manufId             VARCHAR2(30)    NOT NULL,
+    discountThreshold   NUMBER(12, 2)   DEFAULT 0.00 NOT NULL,
+    discountPercent     NUMBER(5, 4)    DEFAULT 0.0000 NOT NULL,
+    CONSTRAINT PK_Manufacturers PRIMARY KEY (manufId),
+    CONSTRAINT FK_Manufacturers_BE FOREIGN KEY (manufId)
+        REFERENCES BusinessEntities(entityId) ON DELETE CASCADE,
+    CONSTRAINT CHK_Manuf_DiscPercent CHECK (discountPercent >= 0.0000 AND discountPercent <= 1.0000),
+    CONSTRAINT CHK_Manuf_DiscThreshold CHECK (discountThreshold >= 0)
+);
+
+CREATE TABLE Customers (
+    customerId          VARCHAR2(30)    NOT NULL,
+    customerType        VARCHAR2(30)    DEFAULT 'STANDARD' NOT NULL,
+    creditLimit         NUMBER(12, 2)   DEFAULT 10000.00 NOT NULL,
+    CONSTRAINT PK_Customers PRIMARY KEY (customerId),
+    CONSTRAINT FK_Customers_BE FOREIGN KEY (customerId)
+        REFERENCES BusinessEntities(entityId) ON DELETE CASCADE,
+    CONSTRAINT CHK_Cust_CreditLimit CHECK (creditLimit >= 0)
+);
+
+CREATE TABLE Shippers (
+    shipperId           VARCHAR2(30)    NOT NULL,
+    trackingUrl         VARCHAR2(150),
+    CONSTRAINT PK_Shippers PRIMARY KEY (shipperId),
+    CONSTRAINT FK_Shippers_BE FOREIGN KEY (shipperId)
+        REFERENCES BusinessEntities(entityId) ON DELETE CASCADE
+);
+
+-- 5. BILL OF MATERIALS (BOM)
+CREATE TABLE BillOfMaterials (
+    prodItemId          VARCHAR2(30)    NOT NULL,
+    matItemId           VARCHAR2(30)    NOT NULL,
+    qtyMatPerItem       NUMBER(10)      NOT NULL,
+    CONSTRAINT PK_BillOfMaterials PRIMARY KEY (prodItemId, matItemId),
+    CONSTRAINT FK_BOM_Product FOREIGN KEY (prodItemId) REFERENCES ProductItems(itemId) ON DELETE CASCADE,
+    CONSTRAINT FK_BOM_Material FOREIGN KEY (matItemId) REFERENCES MaterialItems(itemId) ON DELETE CASCADE,
+    CONSTRAINT CHK_BOM_Qty CHECK (qtyMatPerItem > 0),
+    CONSTRAINT CHK_BOM_NoSelfLoop CHECK (prodItemId <> matItemId)
+);
+
+-- 6. PRICING SCHEDULES
+CREATE TABLE SupplyPricing (
+    supplierId          VARCHAR2(30)    NOT NULL,
+    itemId              VARCHAR2(30)    NOT NULL,
+    pricePerUnit        NUMBER(10, 2)   NOT NULL,
+    CONSTRAINT PK_SupplyPricing PRIMARY KEY (supplierId, itemId),
+    CONSTRAINT FK_SupplyPricing_Supplier FOREIGN KEY (supplierId) REFERENCES Suppliers(supplierId) ON DELETE CASCADE,
+    CONSTRAINT FK_SupplyPricing_Item FOREIGN KEY (itemId) REFERENCES Items(itemId) ON DELETE CASCADE,
+    CONSTRAINT CHK_Supply_PPU CHECK (pricePerUnit > 0)
+);
+
+CREATE TABLE ManufacturingPricing (
+    manufId             VARCHAR2(30)    NOT NULL,
+    prodItemId          VARCHAR2(30)    NOT NULL,
+    setUpCost           NUMBER(10, 2)   DEFAULT 0.00 NOT NULL,
+    prodCostPerUnit     NUMBER(10, 2)   NOT NULL,
+    CONSTRAINT PK_ManufPricing PRIMARY KEY (manufId, prodItemId),
+    CONSTRAINT FK_ManufPricing_Manuf FOREIGN KEY (manufId) REFERENCES Manufacturers(manufId) ON DELETE CASCADE,
+    CONSTRAINT FK_ManufPricing_Product FOREIGN KEY (prodItemId) REFERENCES ProductItems(itemId) ON DELETE CASCADE,
+    CONSTRAINT CHK_Manuf_SetUpCost CHECK (setUpCost >= 0),
+    CONSTRAINT CHK_Manuf_ProdCost CHECK (prodCostPerUnit > 0)
+);
+
+CREATE TABLE ShippingPricing (
+    shipperId           VARCHAR2(30)    NOT NULL,
+    fromLoc             VARCHAR2(50)    NOT NULL,
+    toLoc               VARCHAR2(50)    NOT NULL,
+    minPackagePrice     NUMBER(10, 2)   DEFAULT 0.00 NOT NULL,
+    pricePerLb          NUMBER(10, 2)   NOT NULL,
+    discountThreshold1  NUMBER(12, 2)   DEFAULT 0.00 NOT NULL,
+    discountPercent1    NUMBER(5, 4)    DEFAULT 0.0000 NOT NULL,
+    discountThreshold2  NUMBER(12, 2)   DEFAULT 0.00 NOT NULL,
+    discountPercent2    NUMBER(5, 4)    DEFAULT 0.0000 NOT NULL,
+    CONSTRAINT PK_ShippingPricing PRIMARY KEY (shipperId, fromLoc, toLoc),
+    CONSTRAINT FK_ShippingPricing_Shipper FOREIGN KEY (shipperId) REFERENCES Shippers(shipperId) ON DELETE CASCADE,
+    CONSTRAINT CHK_Ship_MinPrice CHECK (minPackagePrice >= 0),
+    CONSTRAINT CHK_Ship_PricePerLb CHECK (pricePerLb > 0),
+    CONSTRAINT CHK_Ship_Disc1 CHECK (discountPercent1 >= 0.0000 AND discountPercent1 <= 1.0000),
+    CONSTRAINT CHK_Ship_Disc2 CHECK (discountPercent2 >= 0.0000 AND discountPercent2 <= 1.0000),
+    CONSTRAINT CHK_Ship_Thresholds CHECK (discountThreshold1 >= 0 AND discountThreshold2 >= discountThreshold1),
+    CONSTRAINT CHK_Ship_DiscRate CHECK (discountPercent2 >= discountPercent1)
+);
+
+-- 7. CUSTOMER DEMAND
+CREATE TABLE CustomerDemand (
+    customerId          VARCHAR2(30)    NOT NULL,
+    itemId              VARCHAR2(30)    NOT NULL,
+    demandQty           NUMBER(10)      NOT NULL,
+    CONSTRAINT PK_CustomerDemand PRIMARY KEY (customerId, itemId),
+    CONSTRAINT FK_CustomerDemand_Cust FOREIGN KEY (customerId) REFERENCES Customers(customerId) ON DELETE CASCADE,
+    CONSTRAINT FK_CustomerDemand_Item FOREIGN KEY (itemId) REFERENCES Items(itemId) ON DELETE CASCADE,
+    CONSTRAINT CHK_CustDemand_Qty CHECK (demandQty > 0)
+);
+
+-- 8. INDEPENDENT ORDER TRANSACTIONS
+CREATE TABLE SupplyOrders (
+    orderId             VARCHAR2(30)    NOT NULL,
+    supplierId          VARCHAR2(30)    NOT NULL,
+    itemId              VARCHAR2(30)    NOT NULL,
+    orderedQty          NUMBER(10)      NOT NULL,
+    orderDate           DATE            DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT PK_SupplyOrders PRIMARY KEY (orderId),
+    CONSTRAINT UQ_SupplyOrders_Entry UNIQUE (supplierId, itemId, orderId),
+    CONSTRAINT FK_SupplyOrders_Supplier FOREIGN KEY (supplierId) REFERENCES Suppliers(supplierId) ON DELETE CASCADE,
+    CONSTRAINT FK_SupplyOrders_Item FOREIGN KEY (itemId) REFERENCES Items(itemId) ON DELETE CASCADE,
+    CONSTRAINT CHK_SupplyOrders_Qty CHECK (orderedQty > 0)
+);
+
+CREATE TABLE ManufacturingOrders (
+    orderId             VARCHAR2(30)    NOT NULL,
+    manufId             VARCHAR2(30)    NOT NULL,
+    prodItemId          VARCHAR2(30)    NOT NULL,
+    orderedQty          NUMBER(10)      NOT NULL,
+    orderDate           DATE            DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT PK_ManufacturingOrders PRIMARY KEY (orderId),
+    CONSTRAINT UQ_ManufOrders_Entry UNIQUE (manufId, prodItemId, orderId),
+    CONSTRAINT FK_ManufOrders_Manuf FOREIGN KEY (manufId) REFERENCES Manufacturers(manufId) ON DELETE CASCADE,
+    CONSTRAINT FK_ManufOrders_Product FOREIGN KEY (prodItemId) REFERENCES ProductItems(itemId) ON DELETE CASCADE,
+    CONSTRAINT CHK_ManufOrders_Qty CHECK (orderedQty > 0)
+);
+
+CREATE TABLE ShippingOrders (
+    shipOrderId         VARCHAR2(30)    NOT NULL,
+    shipperId           VARCHAR2(30)    NOT NULL,
+    senderId            VARCHAR2(30)    NOT NULL,
+    recipientId         VARCHAR2(30)    NOT NULL,
+    itemId              VARCHAR2(30)    NOT NULL,
+    shippedQty          NUMBER(10)      NOT NULL,
+    shipDate            DATE            DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT PK_ShippingOrders PRIMARY KEY (shipOrderId),
+    CONSTRAINT FK_ShipOrders_Shipper FOREIGN KEY (shipperId) REFERENCES Shippers(shipperId) ON DELETE CASCADE,
+    CONSTRAINT FK_ShipOrders_Sender FOREIGN KEY (senderId) REFERENCES BusinessEntities(entityId) ON DELETE CASCADE,
+    CONSTRAINT FK_ShipOrders_Recipient FOREIGN KEY (recipientId) REFERENCES BusinessEntities(entityId) ON DELETE CASCADE,
+    CONSTRAINT FK_ShipOrders_Item FOREIGN KEY (itemId) REFERENCES Items(itemId) ON DELETE CASCADE,
+    CONSTRAINT CHK_ShipOrders_Qty CHECK (shippedQty > 0),
+    CONSTRAINT CHK_ShipOrders_NoSelfShip CHECK (senderId <> recipientId)
+);</code></pre>
+
+</body>
+</html>
