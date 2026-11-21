@@ -196,8 +196,8 @@
     <path d="M 0 0 L 320 0 L 320 30 L 0 30 Z" fill="#0284c7" />
     <text x="12" y="20" fill="#ffffff" font-size="13" font-weight="700">SupplyOrders</text>
     <text x="12" y="50" fill="#1e293b" font-size="12" font-weight="600"><tspan text-decoration="underline">orderId</tspan> : VARCHAR(30) [PK]</text>
-    <text x="12" y="70" fill="#475569" font-size="12">supplierId : VARCHAR(30) [FK &rarr; Suppliers]</text>
-    <text x="12" y="90" fill="#475569" font-size="12">itemId : VARCHAR(30) [FK &rarr; Items]</text>
+    <text x="12" y="70" fill="#475569" font-size="12">supplierId : VARCHAR(30) [FK &#8594; Suppliers]</text>
+    <text x="12" y="90" fill="#475569" font-size="12">itemId : VARCHAR(30) [FK &#8594; Items]</text>
     <text x="12" y="110" fill="#475569" font-size="12">orderedQty : NUMBER &gt; 0, orderDate : DATE</text>
   </g>
 
@@ -207,8 +207,8 @@
     <path d="M 0 0 L 340 0 L 340 30 L 0 30 Z" fill="#0d9488" />
     <text x="12" y="20" fill="#ffffff" font-size="13" font-weight="700">ManufacturingOrders</text>
     <text x="12" y="50" fill="#1e293b" font-size="12" font-weight="600"><tspan text-decoration="underline">orderId</tspan> : VARCHAR(30) [PK]</text>
-    <text x="12" y="70" fill="#475569" font-size="12">manufId : VARCHAR(30) [FK &rarr; Manufacturers]</text>
-    <text x="12" y="90" fill="#475569" font-size="12">prodItemId : VARCHAR(30) [FK &rarr; ProductItems]</text>
+    <text x="12" y="70" fill="#475569" font-size="12">manufId : VARCHAR(30) [FK &#8594; Manufacturers]</text>
+    <text x="12" y="90" fill="#475569" font-size="12">prodItemId : VARCHAR(30) [FK &#8594; ProductItems]</text>
     <text x="12" y="110" fill="#475569" font-size="12">orderedQty : NUMBER &gt; 0, orderDate : DATE</text>
   </g>
 
@@ -218,10 +218,10 @@
     <path d="M 0 0 L 390 0 L 390 30 L 0 30 Z" fill="#ea580c" />
     <text x="12" y="20" fill="#ffffff" font-size="13" font-weight="700">ShippingOrders</text>
     <text x="12" y="50" fill="#1e293b" font-size="12" font-weight="600"><tspan text-decoration="underline">shipOrderId</tspan> : VARCHAR(30) [PK]</text>
-    <text x="12" y="70" fill="#475569" font-size="12">shipperId : VARCHAR(30) [FK &rarr; Shippers]</text>
-    <text x="12" y="90" fill="#475569" font-size="12">senderId : VARCHAR(30) [FK &rarr; BusinessEntities]</text>
-    <text x="12" y="110" fill="#475569" font-size="12">recipientId : VARCHAR(30) [FK &rarr; BusinessEntities]</text>
-    <text x="12" y="130" fill="#475569" font-size="12">itemId : VARCHAR(30) [FK &rarr; Items]</text>
+    <text x="12" y="70" fill="#475569" font-size="12">shipperId : VARCHAR(30) [FK &#8594; Shippers]</text>
+    <text x="12" y="90" fill="#475569" font-size="12">senderId : VARCHAR(30) [FK &#8594; BusinessEntities]</text>
+    <text x="12" y="110" fill="#475569" font-size="12">recipientId : VARCHAR(30) [FK &#8594; BusinessEntities]</text>
+    <text x="12" y="130" fill="#475569" font-size="12">itemId : VARCHAR(30) [FK &#8594; Items]</text>
     <text x="12" y="150" fill="#dc2626" font-size="11" font-weight="600">CHECK (senderId &lt;&gt; recipientId AND shippedQty &gt; 0)</text>
   </g>
 
