@@ -1,150 +1,169 @@
-<mxfile host="app.diagrams.net" modified="2026-11-25T15:00:00.000Z" agent="Mozilla/5.0" version="21.0.0" type="device">
-  <diagram id="cs550_clean_eer" name="CS550 EER Diagram">
-    <mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1650" pageHeight="1100" background="#ffffff" math="0" shadow="0">
+<mxfile host="app.diagrams.net" modified="2026-11-25T16:00:00.000Z" agent="Mozilla/5.0" version="21.0.0" type="device">
+  <diagram id="cs550_collaborative_supply_chain" name="Collaborative Supply Chain EER Diagram">
+    <mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1650" pageHeight="1100" background="#f8fafc" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
-        <!-- ==================== HEADER BANNER ==================== -->
-        <mxCell id="header" value="&lt;b style='font-size:16px;'&gt;CS 550 / CS 450: Collaborative Supply Chain EER Diagram&lt;/b&gt;&lt;br&gt;&lt;span style='font-size:11px;color:#cbd5e1;'&gt;Entities, Specialization Hierarchies (ISA), Associative Pricing, and Independent Order Streams&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f172a;strokeColor=#1e293b;fontColor=#ffffff;align=center;" vertex="1" parent="1">
-          <mxGeometry x="40" y="20" width="1520" height="50" as="geometry" />
-        </mxCell>
+        <!-- ===================================================================== -->
+        <!-- COLUMN 1 (LEFT): BUSINESS ENTITIES HIERARCHY                         -->
+        <!-- ===================================================================== -->
 
-        <!-- ==================== 1. BUSINESS ENTITIES HIERARCHY (LEFT) ==================== -->
         <!-- Superclass: BusinessEntities -->
-        <mxCell id="be" value="&lt;b style='font-size:13px;'&gt;BusinessEntities&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;entityId&lt;/u&gt;&lt;/b&gt; : VARCHAR(30) [PK]&lt;br&gt;name : VARCHAR(100)&lt;br&gt;shipLoc : VARCHAR(50)&lt;br&gt;address : VARCHAR(150)&lt;br&gt;phone : VARCHAR(20)&lt;br&gt;web : VARCHAR(100)&lt;br&gt;contactInfo : VARCHAR(100)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" vertex="1" parent="1">
-          <mxGeometry x="60" y="100" width="240" height="150" as="geometry" />
+        <mxCell id="be" value="&lt;b style='font-size:13px;color:#ffffff;'&gt;BusinessEntities (Superclass)&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #93c5fd;'&gt;&lt;b&gt;&lt;u&gt;entityId&lt;/u&gt;&lt;/b&gt; : VARCHAR(30) [PK]&lt;br&gt;name : VARCHAR(100)&lt;br&gt;shipLoc : VARCHAR(50)&lt;br&gt;address : VARCHAR(150)&lt;br&gt;phone : VARCHAR(20)&lt;br&gt;web : VARCHAR(100)&lt;br&gt;contactInfo : VARCHAR(100)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2563eb;strokeColor=#1d4ed8;fontColor=#ffffff;align=left;verticalAlign=top;spacingLeft=12;spacingTop=6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="30" width="320" height="155" as="geometry" />
         </mxCell>
 
-        <!-- Disjoint ISA Circle 'd' -->
-        <mxCell id="be_isa" value="&lt;b style='font-size:13px;color:#1e40af;'&gt;d&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#eff6ff;strokeColor=#3b82f6;strokeWidth=2;align=center;" vertex="1" parent="1">
-          <mxGeometry x="165" y="275" width="30" height="30" as="geometry" />
+        <!-- Disjoint Specialization Circle (d) -->
+        <mxCell id="be_isa" value="&lt;b style='font-size:16px;color:#1e40af;'&gt;d&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#eff6ff;strokeColor=#2563eb;strokeWidth=2;align=center;verticalAlign=middle;fontColor=#1e40af;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="201" y="206" width="38" height="38" as="geometry" />
         </mxCell>
-        <mxCell id="edge_be_to_isa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2563eb;strokeWidth=2;endArrow=none;" edge="1" source="be" target="be_isa" parent="1">
+        <mxCell id="e_be_to_isa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#2563eb;strokeWidth=2;endArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="be" target="be_isa" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <!-- Subclass: Suppliers -->
-        <mxCell id="sub_sup" value="&lt;b&gt;Suppliers&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;supplierId&lt;/u&gt;&lt;/b&gt; [PK, FK]&lt;br&gt;discountThreshold1&lt;br&gt;discountPercent1&lt;br&gt;discountThreshold2&lt;br&gt;discountPercent2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3b82f6;strokeWidth=1.5;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="40" y="335" width="180" height="110" as="geometry" />
+        <!-- Subclass 1: Suppliers -->
+        <mxCell id="sub_sup" value="&lt;b style='font-size:12px;color:#1e40af;'&gt;Suppliers (Subclass)&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #bfdbfe;'&gt;&lt;b&gt;&lt;u&gt;supplierId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; BusinessEntities]&lt;br&gt;discountThreshold1 : NUM&lt;br&gt;discountPercent1 : NUM&lt;br&gt;discountThreshold2 : NUM&lt;br&gt;discountPercent2 : NUM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3b82f6;strokeWidth=1.5;fontColor=#0f172a;align=left;verticalAlign=top;spacingLeft=10;spacingTop=4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="275" width="280" height="115" as="geometry" />
         </mxCell>
 
-        <!-- Subclass: Manufacturers -->
-        <mxCell id="sub_man" value="&lt;b&gt;Manufacturers&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;manufId&lt;/u&gt;&lt;/b&gt; [PK, FK]&lt;br&gt;discountThreshold&lt;br&gt;discountPercent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3b82f6;strokeWidth=1.5;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="240" y="335" width="180" height="90" as="geometry" />
+        <!-- Subclass 2: Manufacturers -->
+        <mxCell id="sub_man" value="&lt;b style='font-size:12px;color:#1e40af;'&gt;Manufacturers (Subclass)&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #bfdbfe;'&gt;&lt;b&gt;&lt;u&gt;manufId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; BusinessEntities]&lt;br&gt;discountThreshold : NUMBER &gt;= 0&lt;br&gt;discountPercent : NUMBER (0 to 1)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3b82f6;strokeWidth=1.5;fontColor=#0f172a;align=left;verticalAlign=top;spacingLeft=10;spacingTop=4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="410" width="280" height="90" as="geometry" />
         </mxCell>
 
-        <!-- Subclass: Customers -->
-        <mxCell id="sub_cus" value="&lt;b&gt;Customers&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;customerId&lt;/u&gt;&lt;/b&gt; [PK, FK]&lt;br&gt;customerType&lt;br&gt;creditLimit" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3b82f6;strokeWidth=1.5;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="40" y="475" width="180" height="85" as="geometry" />
+        <!-- Subclass 3: Shippers -->
+        <mxCell id="sub_shp" value="&lt;b style='font-size:12px;color:#1e40af;'&gt;Shippers (Subclass)&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #bfdbfe;'&gt;&lt;b&gt;&lt;u&gt;shipperId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; BusinessEntities]&lt;br&gt;trackingUrl : VARCHAR(150)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3b82f6;strokeWidth=1.5;fontColor=#0f172a;align=left;verticalAlign=top;spacingLeft=10;spacingTop=4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="520" width="280" height="80" as="geometry" />
         </mxCell>
 
-        <!-- Subclass: Shippers -->
-        <mxCell id="sub_shp" value="&lt;b&gt;Shippers&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;shipperId&lt;/u&gt;&lt;/b&gt; [PK, FK]&lt;br&gt;trackingUrl" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3b82f6;strokeWidth=1.5;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="240" y="475" width="180" height="75" as="geometry" />
+        <!-- Subclass 4: Customers -->
+        <mxCell id="sub_cus" value="&lt;b style='font-size:12px;color:#1e40af;'&gt;Customers (Subclass)&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #bfdbfe;'&gt;&lt;b&gt;&lt;u&gt;customerId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; BusinessEntities]&lt;br&gt;customerType : VARCHAR(30)&lt;br&gt;creditLimit : NUMBER &gt;= 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3b82f6;strokeWidth=1.5;fontColor=#0f172a;align=left;verticalAlign=top;spacingLeft=10;spacingTop=4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="620" width="280" height="85" as="geometry" />
         </mxCell>
 
-        <!-- ISA Edges -->
-        <mxCell id="e_isa_sup" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#3b82f6;strokeWidth=1.5;endArrow=classic;entryX=0.5;entryY=0;" edge="1" source="be_isa" target="sub_sup" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e_isa_man" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#3b82f6;strokeWidth=1.5;endArrow=classic;entryX=0.5;entryY=0;" edge="1" source="be_isa" target="sub_man" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e_isa_cus" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#3b82f6;strokeWidth=1.5;endArrow=classic;entryX=0.5;entryY=0;" edge="1" source="be_isa" target="sub_cus" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e_isa_shp" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#3b82f6;strokeWidth=1.5;endArrow=classic;entryX=0.5;entryY=0;" edge="1" source="be_isa" target="sub_shp" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <!-- ISA Connectors: Spine at x=35 -->
+        <mxCell id="e_isa_sup" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#2563eb;strokeWidth=1.5;endArrow=classic;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="be_isa" target="sub_sup" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="35" y="225" /><mxPoint x="35" y="332" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e_isa_man" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#2563eb;strokeWidth=1.5;endArrow=classic;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="be_isa" target="sub_man" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="35" y="225" /><mxPoint x="35" y="455" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e_isa_shp" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#2563eb;strokeWidth=1.5;endArrow=classic;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="be_isa" target="sub_shp" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="35" y="225" /><mxPoint x="35" y="560" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e_isa_cus" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#2563eb;strokeWidth=1.5;endArrow=classic;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="be_isa" target="sub_cus" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="35" y="225" /><mxPoint x="35" y="662" /></Array></mxGeometry>
+        </mxCell>
 
 
-        <!-- ==================== 2. ITEMS HIERARCHY & BOM (RIGHT) ==================== -->
+        <!-- ===================================================================== -->
+        <!-- COLUMN 2 (MIDDLE): PRICING SCHEDULES & DEMAND (M:N ASSOCIATIONS)      -->
+        <!-- ===================================================================== -->
+
+        <!-- Row 1: SupplyPricing -->
+        <mxCell id="pricing_sup" value="&lt;b style='font-size:12px;color:#6d28d9;'&gt;SupplyPricing (Supplier Price Catalogue)&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #ddd6fe;'&gt;&lt;b&gt;&lt;u&gt;supplierId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; Suppliers]&lt;br&gt;&lt;b&gt;&lt;u&gt;itemId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; Items]&lt;br&gt;pricePerUnit : NUMBER(10, 2) &gt; 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#8b5cf6;strokeWidth=1.5;fontColor=#0f172a;align=left;verticalAlign=top;spacingLeft=10;spacingTop=4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="480" y="275" width="360" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Row 2: ManufacturingPricing -->
+        <mxCell id="pricing_man" value="&lt;b style='font-size:12px;color:#6d28d9;'&gt;ManufacturingPricing (Production Costs)&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #ddd6fe;'&gt;&lt;b&gt;&lt;u&gt;manufId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; Manufacturers]&lt;br&gt;&lt;b&gt;&lt;u&gt;prodItemId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; ProductItems]&lt;br&gt;setUpCost : NUMBER &gt;= 0&lt;br&gt;prodCostPerUnit : NUMBER &gt; 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#8b5cf6;strokeWidth=1.5;fontColor=#0f172a;align=left;verticalAlign=top;spacingLeft=10;spacingTop=4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="480" y="410" width="360" height="95" as="geometry" />
+        </mxCell>
+
+        <!-- Row 3: ShippingPricing -->
+        <mxCell id="pricing_shp" value="&lt;b style='font-size:12px;color:#6d28d9;'&gt;ShippingPricing (Route Schedule)&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #ddd6fe;'&gt;&lt;b&gt;&lt;u&gt;shipperId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; Shippers], &lt;b&gt;&lt;u&gt;fromLoc&lt;/u&gt;&lt;/b&gt; [PK], &lt;b&gt;&lt;u&gt;toLoc&lt;/u&gt;&lt;/b&gt; [PK]&lt;br&gt;minPackagePrice &gt;= 0, pricePerLb &gt; 0&lt;br&gt;discountThreshold1, disc1, discountThreshold2, disc2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#8b5cf6;strokeWidth=1.5;fontColor=#0f172a;align=left;verticalAlign=top;spacingLeft=10;spacingTop=4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="480" y="520" width="360" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Row 4: CustomerDemand -->
+        <mxCell id="cust_demand" value="&lt;b style='font-size:12px;color:#be185d;'&gt;CustomerDemand (Demand Requirements)&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #fbcfe8;'&gt;&lt;b&gt;&lt;u&gt;customerId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; Customers]&lt;br&gt;&lt;b&gt;&lt;u&gt;itemId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; Items]&lt;br&gt;demandQty : NUMBER &gt; 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ec4899;strokeWidth=1.5;fontColor=#0f172a;align=left;verticalAlign=top;spacingLeft=10;spacingTop=4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="480" y="620" width="360" height="85" as="geometry" />
+        </mxCell>
+
+        <!-- Direct Horizontal Pricing Connectors (Column 1 -> Column 2: 100% Parallel, Zero Crossing) -->
+        <mxCell id="e_sup_to_pricing" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8b5cf6;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sub_sup" target="pricing_sup" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_man_to_pricing" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8b5cf6;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sub_man" target="pricing_man" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_shp_to_pricing" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8b5cf6;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sub_shp" target="pricing_shp" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_cus_to_demand" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ec4899;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sub_cus" target="cust_demand" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+
+        <!-- ===================================================================== -->
+        <!-- COLUMN 3 (RIGHT): ITEMS HIERARCHY & BILL OF MATERIALS (BOM)           -->
+        <!-- ===================================================================== -->
+
         <!-- Superclass: Items -->
-        <mxCell id="items" value="&lt;b style='font-size:13px;'&gt;Items&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;itemId&lt;/u&gt;&lt;/b&gt; : VARCHAR(30) [PK]&lt;br&gt;itemName : VARCHAR(100)&lt;br&gt;unitWeight : NUMBER &gt; 0&lt;br&gt;itemCategory : VARCHAR(20)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1fae5;strokeColor=#059669;strokeWidth=2;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" vertex="1" parent="1">
-          <mxGeometry x="1240" y="100" width="240" height="110" as="geometry" />
+        <mxCell id="items" value="&lt;b style='font-size:13px;color:#ffffff;'&gt;Items (Superclass)&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #a7f3d0;'&gt;&lt;b&gt;&lt;u&gt;itemId&lt;/u&gt;&lt;/b&gt; : VARCHAR(30) [PK]&lt;br&gt;itemName : VARCHAR(100)&lt;br&gt;unitWeight : NUMBER &gt; 0&lt;br&gt;itemCategory : ('MATERIAL', 'PRODUCT', 'BOTH')" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#059669;strokeColor=#047857;fontColor=#ffffff;align=left;verticalAlign=top;spacingLeft=12;spacingTop=6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="30" width="380" height="120" as="geometry" />
         </mxCell>
 
-        <!-- Overlapping ISA Circle 'o' -->
-        <mxCell id="item_isa" value="&lt;b style='font-size:13px;color:#047857;'&gt;o&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ecfdf5;strokeColor=#059669;strokeWidth=2;align=center;" vertex="1" parent="1">
-          <mxGeometry x="1345" y="235" width="30" height="30" as="geometry" />
+        <!-- Overlapping Specialization Circle (o) -->
+        <mxCell id="items_isa" value="&lt;b style='font-size:16px;color:#047857;'&gt;o&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#ecfdf5;strokeColor=#059669;strokeWidth=2;align=center;verticalAlign=middle;fontColor=#047857;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1351" y="171" width="38" height="38" as="geometry" />
         </mxCell>
-        <mxCell id="edge_item_to_isa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#059669;strokeWidth=2;endArrow=none;" edge="1" source="items" target="item_isa" parent="1">
+        <mxCell id="e_itm_to_isa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#059669;strokeWidth=2;endArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" source="items" target="items_isa" parent="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <!-- Subclass: MaterialItems -->
-        <mxCell id="sub_mat" value="&lt;b&gt;MaterialItems&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;itemId&lt;/u&gt;&lt;/b&gt; [PK, FK]&lt;br&gt;materialType : VARCHAR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#10b981;strokeWidth=1.5;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="1120" y="295" width="180" height="70" as="geometry" />
+        <!-- Subclass 1: MaterialItems -->
+        <mxCell id="sub_mat" value="&lt;b style='font-size:12px;color:#047857;'&gt;MaterialItems (Subclass)&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #a7f3d0;'&gt;&lt;b&gt;&lt;u&gt;itemId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; Items]&lt;br&gt;materialType : VARCHAR(50)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#10b981;strokeWidth=1.5;fontColor=#0f172a;align=left;verticalAlign=top;spacingLeft=10;spacingTop=4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="245" width="220" height="75" as="geometry" />
         </mxCell>
 
-        <!-- Subclass: ProductItems -->
-        <mxCell id="sub_prd" value="&lt;b&gt;ProductItems&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;itemId&lt;/u&gt;&lt;/b&gt; [PK, FK]&lt;br&gt;productLine : VARCHAR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#10b981;strokeWidth=1.5;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="1340" y="295" width="180" height="70" as="geometry" />
+        <!-- Subclass 2: ProductItems -->
+        <mxCell id="sub_prod" value="&lt;b style='font-size:12px;color:#047857;'&gt;ProductItems (Subclass)&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #a7f3d0;'&gt;&lt;b&gt;&lt;u&gt;itemId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; Items]&lt;br&gt;productLine : VARCHAR(50)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#10b981;strokeWidth=1.5;fontColor=#0f172a;align=left;verticalAlign=top;spacingLeft=10;spacingTop=4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="245" width="220" height="75" as="geometry" />
         </mxCell>
 
-        <mxCell id="e_isa_mat" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#059669;strokeWidth=1.5;endArrow=classic;entryX=0.5;entryY=0;" edge="1" source="item_isa" target="sub_mat" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e_isa_prd" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#059669;strokeWidth=1.5;endArrow=classic;entryX=0.5;entryY=0;" edge="1" source="item_isa" target="sub_prd" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <!-- Connectors: Circle (o) -> Subclasses -->
+        <mxCell id="e_isa_mat" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#059669;strokeWidth=1.5;endArrow=classic;exitX=0;exitY=0.5;entryX=0.5;entryY=0;" edge="1" source="items_isa" target="sub_mat" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_isa_prod" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#059669;strokeWidth=1.5;endArrow=classic;exitX=1;exitY=0.5;entryX=0.5;entryY=0;" edge="1" source="items_isa" target="sub_prod" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
 
-        <!-- Bill Of Materials (BOM) -->
-        <mxCell id="bom" value="&lt;b style='color:#92400e;'&gt;BillOfMaterials (M:N BOM)&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;prodItemId&lt;/u&gt;&lt;/b&gt; [FK &amp;rarr; ProductItems]&lt;br&gt;&lt;b&gt;&lt;u&gt;matItemId&lt;/u&gt;&lt;/b&gt; [FK &amp;rarr; MaterialItems]&lt;br&gt;qtyMatPerItem : NUMBER &gt; 0&lt;br&gt;&lt;i style='font-size:10px;color:#b45309;'&gt;CHECK(prodItemId &amp;lt;&amp;gt; matItemId)&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=2;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="1200" y="410" width="240" height="95" as="geometry" />
+        <!-- Associative / M:N Table: BillOfMaterials (BOM) -->
+        <mxCell id="bom" value="&lt;b style='font-size:12px;color:#b45309;'&gt;BillOfMaterials (BOM) [M:N Composition]&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #fde68a;'&gt;&lt;b&gt;&lt;u&gt;prodItemId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; ProductItems]&lt;br&gt;&lt;b&gt;&lt;u&gt;matItemId&lt;/u&gt;&lt;/b&gt; [PK, FK &#8594; MaterialItems]&lt;br&gt;qtyMatPerItem : NUMBER &gt; 0&lt;br&gt;&lt;i style='font-size:10px;color:#64748b;'&gt;CHECK(prodItemId &amp;lt;&amp;gt; matItemId)&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;strokeWidth=2;fontColor=#0f172a;align=left;verticalAlign=top;spacingLeft=10;spacingTop=4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="395" width="360" height="95" as="geometry" />
         </mxCell>
-        <mxCell id="e_bom_mat" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#d97706;strokeWidth=1.5;endArrow=none;entryX=0.3;entryY=0;" edge="1" source="sub_mat" target="bom" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e_bom_prd" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#d97706;strokeWidth=1.5;endArrow=none;entryX=0.7;entryY=0;" edge="1" source="sub_prd" target="bom" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
 
+        <!-- Connectors: MaterialItems & ProductItems -> BOM -->
+        <mxCell id="e_mat_to_bom" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#d97706;strokeWidth=1.5;endArrow=none;exitX=0.5;exitY=1;entryX=0.3;entryY=0;" edge="1" source="sub_mat" target="bom" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_prod_to_bom" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#d97706;strokeWidth=1.5;endArrow=none;exitX=0.5;exitY=1;entryX=0.7;entryY=0;" edge="1" source="sub_prod" target="bom" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
 
-        <!-- ==================== 3. PRICING & DEMAND (CENTER COLUMN) ==================== -->
-        <!-- Supply Pricing -->
-        <mxCell id="sp_price" value="&lt;b style='color:#5b21b6;'&gt;SupplyPricing&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;supplierId&lt;/u&gt;&lt;/b&gt; [FK], &lt;b&gt;&lt;u&gt;itemId&lt;/u&gt;&lt;/b&gt; [FK]&lt;br&gt;pricePerUnit : NUMBER &gt; 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f3ff;strokeColor=#8b5cf6;strokeWidth=1.5;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="580" y="110" width="260" height="70" as="geometry" />
+        <!-- Connectors from Column 2 (Pricing/Demand) to Column 3 (Items) -->
+        <mxCell id="e_sp_to_mat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#8b5cf6;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="pricing_sup" target="sub_mat" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e_mp_to_prod" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#8b5cf6;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=1;exitY=0.5;entryX=0.5;entryY=1;" edge="1" source="pricing_man" target="sub_prod" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="980" y="457" /><mxPoint x="980" y="350" /><mxPoint x="1450" y="350" /></Array></mxGeometry>
         </mxCell>
-        <!-- Connect Suppliers & Items to SupplyPricing -->
-        <mxCell id="e_sp_sup" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#8b5cf6;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=1;exitY=0.3;entryX=0;entryY=0.5;" edge="1" source="sub_sup" target="sp_price" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e_sp_itm" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#8b5cf6;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" source="items" target="sp_price" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-
-        <!-- Manufacturing Pricing -->
-        <mxCell id="mp_price" value="&lt;b style='color:#5b21b6;'&gt;ManufacturingPricing&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;manufId&lt;/u&gt;&lt;/b&gt; [FK], &lt;b&gt;&lt;u&gt;prodItemId&lt;/u&gt;&lt;/b&gt; [FK]&lt;br&gt;setUpCost : NUMBER &gt;= 0&lt;br&gt;prodCostPerUnit : NUMBER &gt; 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f3ff;strokeColor=#8b5cf6;strokeWidth=1.5;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="580" y="215" width="260" height="85" as="geometry" />
+        <mxCell id="e_cd_to_itm" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#ec4899;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="cust_demand" target="items" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="960" y="662" /><mxPoint x="960" y="90" /></Array></mxGeometry>
         </mxCell>
-        <mxCell id="e_mp_man" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#8b5cf6;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sub_man" target="mp_price" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e_mp_prd" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#8b5cf6;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" source="sub_prd" target="mp_price" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-
-        <!-- Shipping Pricing -->
-        <mxCell id="shp_price" value="&lt;b style='color:#5b21b6;'&gt;ShippingPricing (Route Schedule)&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;shipperId&lt;/u&gt;&lt;/b&gt; [FK], &lt;b&gt;&lt;u&gt;fromLoc&lt;/u&gt;&lt;/b&gt;, &lt;b&gt;&lt;u&gt;toLoc&lt;/u&gt;&lt;/b&gt;&lt;br&gt;minPackagePrice, pricePerLb&lt;br&gt;discountThreshold1, discountPercent1&lt;br&gt;discountThreshold2, discountPercent2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f3ff;strokeColor=#8b5cf6;strokeWidth=1.5;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="580" y="335" width="260" height="105" as="geometry" />
-        </mxCell>
-        <mxCell id="e_shp_price" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#8b5cf6;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sub_shp" target="shp_price" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-
-        <!-- Customer Demand -->
-        <mxCell id="cust_demand" value="&lt;b style='color:#9d174d;'&gt;CustomerDemand&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;customerId&lt;/u&gt;&lt;/b&gt; [FK], &lt;b&gt;&lt;u&gt;itemId&lt;/u&gt;&lt;/b&gt; [FK]&lt;br&gt;demandQty : NUMBER &gt; 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fdf2f8;strokeColor=#ec4899;strokeWidth=1.5;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="580" y="475" width="260" height="75" as="geometry" />
-        </mxCell>
-        <mxCell id="e_cd_cus" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#ec4899;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="sub_cus" target="cust_demand" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e_cd_itm" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#ec4899;strokeWidth=1.5;strokeDasharray=4;endArrow=none;exitX=0;exitY=0.8;entryX=1;entryY=0.5;" edge="1" source="items" target="cust_demand" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
 
 
-        <!-- ==================== 4. INDEPENDENT TRANSACTION ORDERS (BOTTOM) ==================== -->
-        <mxCell id="orders_box" value="&lt;b style='font-size:14px;color:#0f172a;'&gt;Transaction Orders (Recorded Separately per Specification)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#cbd5e1;strokeWidth=1.5;align=left;verticalAlign=top;spacingLeft=16;spacingTop=8;" vertex="1" parent="1">
-          <mxGeometry x="40" y="620" width="1520" height="340" as="geometry" />
+        <!-- ===================================================================== -->
+        <!-- BOTTOM CONTAINER: TRANSACTION ORDERS & EER NOTATION LEGEND           -->
+        <!-- ===================================================================== -->
+        <mxCell id="orders_box" value="&lt;b style='font-size:14px;color:#0f172a;'&gt;Operational Transaction Orders (Recorded Separately per Specification)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;strokeWidth=1.5;align=left;verticalAlign=top;spacingLeft=20;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="755" width="1520" height="295" as="geometry" />
         </mxCell>
 
         <!-- SupplyOrders -->
-        <mxCell id="ord_sup" value="&lt;b style='color:#ffffff;'&gt;SupplyOrders&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;orderId&lt;/u&gt;&lt;/b&gt; : VARCHAR(30) [PK]&lt;br&gt;supplierId : VARCHAR(30) [FK &amp;rarr; Suppliers]&lt;br&gt;itemId : VARCHAR(30) [FK &amp;rarr; Items]&lt;br&gt;orderedQty : NUMBER &gt; 0&lt;br&gt;orderDate : DATE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0284c7;strokeColor=#0369a1;strokeWidth=2;fontColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="70" y="670" width="310" height="120" as="geometry" />
+        <mxCell id="ord_sup" value="&lt;b style='font-size:12.5px;color:#ffffff;'&gt;SupplyOrders&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #7dd3fc;'&gt;&lt;b&gt;&lt;u&gt;orderId&lt;/u&gt;&lt;/b&gt; : VARCHAR(30) [PK]&lt;br&gt;supplierId : VARCHAR(30) [FK &#8594; Suppliers]&lt;br&gt;itemId : VARCHAR(30) [FK &#8594; Items]&lt;br&gt;orderedQty : NUMBER &gt; 0&lt;br&gt;orderDate : DATE (Default SYSDATE)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0284c7;strokeColor=#0369a1;strokeWidth=2;fontColor=#ffffff;align=left;verticalAlign=top;spacingLeft=12;spacingTop=6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="75" y="800" width="320" height="135" as="geometry" />
         </mxCell>
 
         <!-- ManufacturingOrders -->
-        <mxCell id="ord_man" value="&lt;b style='color:#ffffff;'&gt;ManufacturingOrders&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;orderId&lt;/u&gt;&lt;/b&gt; : VARCHAR(30) [PK]&lt;br&gt;manufId : VARCHAR(30) [FK &amp;rarr; Manufacturers]&lt;br&gt;prodItemId : VARCHAR(30) [FK &amp;rarr; ProductItems]&lt;br&gt;orderedQty : NUMBER &gt; 0&lt;br&gt;orderDate : DATE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0d9488;strokeColor=#0f766e;strokeWidth=2;fontColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="430" y="670" width="330" height="120" as="geometry" />
+        <mxCell id="ord_man" value="&lt;b style='font-size:12.5px;color:#ffffff;'&gt;ManufacturingOrders&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #5eead4;'&gt;&lt;b&gt;&lt;u&gt;orderId&lt;/u&gt;&lt;/b&gt; : VARCHAR(30) [PK]&lt;br&gt;manufId : VARCHAR(30) [FK &#8594; Manufacturers]&lt;br&gt;prodItemId : VARCHAR(30) [FK &#8594; ProductItems]&lt;br&gt;orderedQty : NUMBER &gt; 0&lt;br&gt;orderDate : DATE (Default SYSDATE)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0d9488;strokeColor=#0f766e;strokeWidth=2;fontColor=#ffffff;align=left;verticalAlign=top;spacingLeft=12;spacingTop=6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="800" width="340" height="135" as="geometry" />
         </mxCell>
 
         <!-- ShippingOrders -->
-        <mxCell id="ord_shp" value="&lt;b style='color:#ffffff;'&gt;ShippingOrders&lt;/b&gt;&lt;hr&gt;&lt;b&gt;&lt;u&gt;shipOrderId&lt;/u&gt;&lt;/b&gt; : VARCHAR(30) [PK]&lt;br&gt;shipperId : VARCHAR(30) [FK &amp;rarr; Shippers]&lt;br&gt;senderId : VARCHAR(30) [FK &amp;rarr; BusinessEntities]&lt;br&gt;recipientId : VARCHAR(30) [FK &amp;rarr; BusinessEntities]&lt;br&gt;itemId : VARCHAR(30) [FK &amp;rarr; Items]&lt;br&gt;shippedQty : NUMBER &gt; 0, shipDate : DATE&lt;br&gt;&lt;b style='color:#fee2e2;font-size:10px;'&gt;CHECK(senderId &amp;lt;&amp;gt; recipientId)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ea580c;strokeColor=#c2410c;strokeWidth=2;fontColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="810" y="670" width="380" height="145" as="geometry" />
+        <mxCell id="ord_shp" value="&lt;b style='font-size:12.5px;color:#ffffff;'&gt;ShippingOrders&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #fdba74;'&gt;&lt;b&gt;&lt;u&gt;shipOrderId&lt;/u&gt;&lt;/b&gt; : VARCHAR(30) [PK]&lt;br&gt;shipperId : VARCHAR(30) [FK &#8594; Shippers]&lt;br&gt;senderId : VARCHAR(30) [FK &#8594; BusinessEntities]&lt;br&gt;recipientId : VARCHAR(30) [FK &#8594; BusinessEntities]&lt;br&gt;itemId : VARCHAR(30) [FK &#8594; Items], shippedQty &gt; 0&lt;br&gt;&lt;b style='color:#fee2e2;font-size:10.5px;'&gt;CHECK(senderId &amp;lt;&amp;gt; recipientId)&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ea580c;strokeColor=#c2410c;strokeWidth=2;fontColor=#ffffff;align=left;verticalAlign=top;spacingLeft=12;spacingTop=6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="785" y="800" width="380" height="165" as="geometry" />
         </mxCell>
 
-        <!-- Legend -->
-        <mxCell id="legend" value="&lt;b&gt;EER Notation Legend&lt;/b&gt;&lt;hr&gt;&lt;b style='color:#1d4ed8;'&gt;(d)&lt;/b&gt; Disjoint Subclasses (Cannot be both)&lt;br&gt;&lt;b style='color:#047857;'&gt;(o)&lt;/b&gt; Overlapping Subclasses (Can be both)&lt;br&gt;&lt;b&gt;&lt;u&gt;Underline&lt;/u&gt;&lt;/b&gt; : Primary Key (PK)&lt;br&gt;&lt;b&gt;[FK]&lt;/b&gt; : Foreign Key Constraint&lt;br&gt;&lt;span style='color:#8b5cf6;'&gt;&amp;bull;&amp;bull;&amp;bull;&amp;bull;&lt;/span&gt; Pricing Schedule Association&lt;br&gt;&lt;b style='color:#ea580c;'&gt;&amp;mdash;&amp;mdash;&lt;/b&gt; Transaction Order Entity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#94a3b8;strokeWidth=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="1230" y="670" width="300" height="145" as="geometry" />
+        <!-- EER Notation Legend (Spacious, Zero Overlap, Clean Table Layout) -->
+        <mxCell id="legend_box" value="&lt;b style='font-size:13px;color:#0f172a;'&gt;EER Notation Legend&lt;/b&gt;&lt;hr style='border:0;border-top:1px solid #cbd5e1;'&gt;&lt;table style='font-size:11.5px;color:#334155;width:100%;border-collapse:collapse;' cellpadding='4'&gt;&lt;tr&gt;&lt;td style='width:36px;text-align:center;'&gt;&lt;b style='color:#1e40af;font-size:13px;'&gt;(d)&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Disjoint Specialization (is-a)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align:center;'&gt;&lt;b style='color:#047857;font-size:13px;'&gt;(o)&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Overlapping Specialization (is-a)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align:center;'&gt;&lt;b&gt;&lt;u&gt;PK&lt;/u&gt;&lt;/b&gt;&lt;/td&gt;&lt;td&gt;Primary Key &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;b&gt;[FK]&lt;/b&gt; Foreign Key&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align:center;color:#8b5cf6;'&gt;&amp;bull;&amp;bull;&amp;bull;&lt;/td&gt;&lt;td&gt;Pricing Schedule / Demand Association&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align:center;color:#d97706;font-weight:bold;'&gt;&amp;mdash;&amp;mdash;&lt;/td&gt;&lt;td&gt;Bill of Materials (BOM) Composition&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#94a3b8;strokeWidth=1.5;fontColor=#334155;align=left;verticalAlign=top;spacingLeft=14;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="800" width="355" height="225" as="geometry" />
         </mxCell>
-
-        <!-- Connectors from Subclasses to Orders -->
-        <mxCell id="e_ord_sup" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0284c7;strokeWidth=1.5;endArrow=classic;exitX=0.5;exitY=1;entryX=0.3;entryY=0;" edge="1" source="sub_sup" target="ord_sup" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e_ord_man" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0d9488;strokeWidth=1.5;endArrow=classic;exitX=0.7;exitY=1;entryX=0.3;entryY=0;" edge="1" source="sub_man" target="ord_man" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="e_ord_shp" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#ea580c;strokeWidth=1.5;endArrow=classic;exitX=0.8;exitY=1;entryX=0.2;entryY=0;" edge="1" source="sub_shp" target="ord_shp" parent="1"><mxGeometry relative="1" as="geometry" /></mxCell>
 
       </root>
     </mxGraphModel>
